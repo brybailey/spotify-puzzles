@@ -14,15 +14,12 @@ int main() {
   while( in != 0 ) {
     test = in&1;
     out = out<<1;
-    printf("%d\n", out);
     if( (test&1) == 1 ) {
       out++;
     }
-
-    in = in >> 1;
+    in = in>>1;
   }
-
-  printf( "%d is out\n", out );
+  printf( "%d", out );
 
   return 1; 
 
