@@ -1,4 +1,4 @@
-// Prime finder
+// Reverse binary 
 // (c) 2017 Bryan C. Bailey
 
 #include <stdio.h>
@@ -8,12 +8,13 @@ int main() {
   int in;
   scanf( "%d", &in );
 
-  int out;
+  int out=0;
   int test;
 
   while( in != 0 ) {
     test = in&1;
     out = out<<1;
+    printf("%d\n", out);
     if( (test&1) == 1 ) {
       out++;
     }
@@ -22,7 +23,6 @@ int main() {
   }
 
   printf( "%d is out\n", out );
-
 
   return 1; 
 
