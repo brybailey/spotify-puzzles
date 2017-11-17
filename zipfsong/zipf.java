@@ -7,12 +7,10 @@ import java.util.*;
 public class zipf {
 
 
-    public static void main( String[] args ) {
-	
-	Scanner in = new Scanner(System.in);
-	int n = in.nextInt();
-	int m = in.nextInt();
-	int albumListens=0;
+    static int albumListens;
+
+    private static HashMap<String, Double> gatherSongs( Scanner in, int n ) {
+	albumListens = 0;
 	HashMap<String, Double> albumSongs = new LinkedHashMap<String, Double>();
 
 	for( int i=0; i<n; i++ ) {
@@ -21,7 +19,12 @@ public class zipf {
 	    String songName = in.next();
 	    albumSongs.put( songName, listens );
 	}
-	
+
+	return albumSongs;
+    }
+
+
+    private static TreeMap<Double, String> computeZipfScores( HashMap<String, Double> albumSongs ) {
 	double trackNumber = 1.0;
 	TreeMap<Double, String> zipfSongs = new TreeMap<Double, String>(Collections.reverseOrder());
 	for( String song: albumSongs.keySet() ) {
@@ -31,7 +34,18 @@ public class zipf {
 	    zipfSongs.put( qi, song );
 	    trackNumber++;
 	}
+
+	return zipfSongs; 
+    }
+
+    public static void main( String[] args ) {
 	
+	Scanner in = new Scanner(System.in);
+	int n = in.nextInt();
+	int m = in.nextInt();
+	
+	HashMap<String, Double> albumSongs = gatherSongs(in, n);
+	TreeMap<Double, String> zipfSongs = computeZipfScores( albumSongs );
 	int exit = 0;
 	for( double quality: zipfSongs.keySet() ) {
 	    System.out.println( zipfSongs.get(quality));
