@@ -31,12 +31,11 @@ public class zipf {
 	    zipfSongs.put( qi, song );
 	    trackNumber++;
 	}
-
-	System.out.println(zipfSongs);
-
 	
-
-	return;
+	int exit = 0;
+	for( double quality: zipfSongs.keySet() ) {
+	    System.out.println( zipfSongs.get(quality));
+	    if( ++exit==m ) return;
+	}
     }
-
 }

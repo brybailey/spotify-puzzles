@@ -23,7 +23,7 @@ public class zipf {
 	}
 	
 	double trackNumber = 1.0;
-	TreeMap<Double, String> zipfSongs = new TreeMap<Double, String>();
+	TreeMap<Double, String> zipfSongs = new TreeMap<Double, String>(Collections.reverseOrder());
 	for( String song: albumSongs.keySet() ) {
 	    double fi = albumSongs.get(song)/(double)albumListens;
 	    double zi = 1/trackNumber;
