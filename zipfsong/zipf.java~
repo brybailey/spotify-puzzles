@@ -6,13 +6,14 @@ import java.util.*;
 
 public class zipf {
 
-
+    // The total number of listens for all the songs on the album
     static int albumListens;
-
+    
+    // Put all the songs and their number of listens in a hashmap
+    // Set the albumListens
     private static HashMap<String, Double> gatherSongs( Scanner in, int n ) {
 	albumListens = 0;
 	HashMap<String, Double> albumSongs = new LinkedHashMap<String, Double>();
-
 	for( int i=0; i<n; i++ ) {
 	    double listens = in.nextInt();
 	    albumListens+=listens;
@@ -23,6 +24,22 @@ public class zipf {
 	return albumSongs;
     }
 
+    // Compute the relative Zipf scores of all the songs
+    private static TreeMap<Double, String> computeZipfScores( HashMap<String, Double> albumSongs ) {
+	double trackNumber = 1.0;
+	TreeMap<Double, String> zipfSongs = new TreeMap<Double, String>(Collections.reverseOrder());
+	for( String song: albumSongs.keySet() ) {
+	    // This is 
+	    double fi = albumSongs.get(song)/(double)albumListens;
+	    double zi = 1/trackNumber;
+	    double qi = fi/zi;
+	    zipfSongs.put( qi, song );
+	    trackNumber++;
+	}
+
+	return zipfSongs; 
+    }
+
     public static void main( String[] args ) {
 	
 	Scanner in = new Scanner(System.in);
@@ -30,17 +47,7 @@ public class zipf {
 	int m = in.nextInt();
 	
 	HashMap<String, Double> albumSongs = gatherSongs(in, n);
-	
-	double trackNumber = 1.0;
-	TreeMap<Double, String> zipfSongs = new TreeMap<Double, String>(Collections.reverseOrder());
-	for( String song: albumSongs.keySet() ) {
-	    double fi = albumSongs.get(song)/(double)albumListens;
-	    double zi = 1/trackNumber;
-	    double qi = fi/zi;
-	    zipfSongs.put( qi, song );
-	    trackNumber++;
-	}
-	
+	TreeMap<Double, String> zipfSongs = computeZipfScores( albumSongs );
 	int exit = 0;
 	for( double quality: zipfSongs.keySet() ) {
 	    System.out.println( zipfSongs.get(quality));
